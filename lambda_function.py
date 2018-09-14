@@ -16,15 +16,14 @@ MAX_DEPTH = 500
 
 
 def handler(event, context):
+    """Handler function for the Lambda"""
     for record in event['Records']:
-
         repository = record['eventSourceARN'].split(':')[5]
         region = record['eventSourceARN'].split(':')[3]
         repository_id = '%s:%s' % (repository, region)
         before = previous(repository_id)
 
         for reference in record['codecommit']['references']:
-
             head = reference['commit']
             ref = reference['ref']
 
@@ -33,13 +32,7 @@ def handler(event, context):
             if before is None:
                 before = head
 
-            payload = {
-                'ref': ref,
-                'head': head,
-                'size': 0,
-                'before': before,
-                'commits': [],
-            }
+            payload = { 'ref': ref, 'head': head, 'size': 0, 'before': before, 'commits': [] }
 
             commits(repository, region, before, payload, head)
 
