@@ -16,14 +16,11 @@ MAX_DEPTH = 500
 
 
 def handler(event, context):
-
     for record in event['Records']:
 
         repository = record['eventSourceARN'].split(':')[5]
         region = record['eventSourceARN'].split(':')[3]
-        user = record['userIdentityARN'].split('/')[1]
         repository_id = '%s:%s' % (repository, region)
-
         before = previous(repository_id)
 
         for reference in record['codecommit']['references']:
@@ -46,12 +43,13 @@ def handler(event, context):
 
             commits(repository, region, before, payload, head)
 
-        sns.publish(TopicArn=topic, Message=json.dumps(payload))
+            sns.publish(TopicArn=topic, Message=json.dumps(payload))
 
     return repository_id
 
 
 def commits(repository, region, before, payload, commit_id):
+    """Recursively walk through the commits"""
     if payload['size'] >= MAX_DEPTH:
         return
 
@@ -74,6 +72,7 @@ def commits(repository, region, before, payload, commit_id):
 
 
 def append(payload, commit):
+    """Append up the max commits and increase the size/count"""
     payload['size'] = payload['size'] + 1
 
     if len(payload['commits']) <= MAX_COMMITS:
