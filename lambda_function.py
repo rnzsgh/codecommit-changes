@@ -41,7 +41,6 @@ def handler(event, context):
                 'head': head,
                 'size': 0,
                 'before': before,
-                'truncated': False,
                 'commits': [],
             }
 
