@@ -62,9 +62,6 @@ def commits(repo, region, before, payload, commit_id):
             commits(repo, region, before, payload, parent)
 
 
-
-
-
 def append(payload, commit):
     """Append up the max commits and increase the size/count"""
     payload['size'] += 1
