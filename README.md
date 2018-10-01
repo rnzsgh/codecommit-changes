@@ -8,8 +8,8 @@ See the [AWS CodeCommit Events](https://docs.aws.amazon.com/AmazonCloudWatch/lat
 ### Setup
 
 * Create a SNS topic
-  * For email notification, create a subscription to the topic and click the confirmation in the email sent
 * Subscribe to the SNS topic
+  * For email notification, create a subscription to the topic and click the confirmation in the email received
 * Create a Lambda function
   * 5m timeout
   * Python 2.7
