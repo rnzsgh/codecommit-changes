@@ -17,6 +17,8 @@ sys.setrecursionlimit(5000)
 def handler(event, context):
     """Handler function for the Lambda"""
 
+    seen = set()
+
     region = event['region']
 
     head = event['detail']['commitId']
@@ -28,17 +30,19 @@ def handler(event, context):
 
     payload = { 'ref': ref, 'head': head, 'size': 0, 'before': before, 'commits': [] }
 
-    commits(repo, region, before, payload, head)
+    commits(repo, region, seen, before, payload, head)
 
     sns.publish(TopicArn=topic, Message=json.dumps(payload))
 
     return ref
 
 
-def commits(repo, region, before, payload, commit_id):
+def commits(repo, region, seen, before, payload, commit_id):
     """Recursively walk through the commits"""
-    if commit_id == before:
+    if commit_id in seen or commit_id == before:
         return
+
+    seen.add(commit_id)
 
     commit = None
     while True:
@@ -59,7 +63,7 @@ def commits(repo, region, before, payload, commit_id):
         for parent in commit['commit']['parents']:
             if parent == before:
                 return
-            commits(repo, region, before, payload, parent)
+            commits(repo, region, seen, before, payload, parent)
 
 
 def append(payload, commit):
