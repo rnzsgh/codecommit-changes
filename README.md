@@ -19,7 +19,7 @@ Steps to setup:
 
 The CloudWatch Event pattern should look like:
 
-`
+```
 {
   "source": [
     "aws.codecommit"
@@ -31,5 +31,5 @@ The CloudWatch Event pattern should look like:
     "arn:aws:codecommit:us-east-1:ACCOUNT_ID:REPO_OR_*_FOR_ALL"
   ]
 }
-`
+```
 
