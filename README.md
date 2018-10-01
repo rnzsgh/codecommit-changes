@@ -33,3 +33,4 @@ The CloudWatch Event pattern should look like:
 }
 ```
 
+The sample deploy.sh script showcases how to push updates to the Lambda function. You must create the function before deploying
