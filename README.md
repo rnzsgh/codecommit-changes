@@ -5,7 +5,7 @@ Example Lambda function that showcases how to retrieve commits for a git push ev
 
 See the [AWS CodeCommit Events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/EventTypes.html#codecommit_event_type) documentation for additional information on the message payload.
 
-Steps to setup:
+### Setup
 
 * Create a SNS topic
   * For email notification, create a subscription to the topic and click the confirmation in the email sent
