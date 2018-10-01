@@ -10,5 +10,6 @@ Steps to setup:
 * Create a SNS topic
 * Subscribe to the SNS topic
 * Create a Lambda function
-** 5m timeout
-** Python 2.7,
+  * 5m timeout
+  * Python 2.7
+
